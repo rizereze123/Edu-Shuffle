@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edu-Shuffle | Random Division of Group Members</title>
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body>
+    <py-script>
+    from js import document,alert
+    import random        
+    def shuffle(*ags, **kws):
+        list_nama = list(document.getElementById('list_nama').value.split());
+        jumlah_kelompok = int(document.getElementById('jumlah_kelompok').value);
+        data = [""]*jumlah_kelompok
+        i = 0
+        while len(list_nama)!=0:
+            jumlah_orang = len(list_nama)
+            terpilih = random.randint(0, jumlah_orang-1)
+            data[i] = data[i] + " " + list_nama[terpilih]
+            del list_nama[terpilih]
+            i += 1
+            if i == jumlah_kelompok:
+                i = 0
+        tmp = []
+        for i in range(jumlah_kelompok):
+            tmp.append("Kelompok Ke-" + str(i+1) + " : " + data[i])
+        pyscript.write("result_shuffle", tmp)
+    </py-script>    
+    <div id="bubbles">
+        <div class="bubble x1"></div>
+        <div class="bubble x2"></div>
+        <div class="bubble x3"></div>
+        <div class="bubble x4"></div>
+        <div class="bubble x5"></div>
+    </div>  
+    <img src="../img/group.png" class="text" alt="text">
+    <img src="../img/teacher1-unscreen.gif" class="guru" alt="teacher">
+    <center class="input-form">
+      <div class="card w-75 bg-light shadow-lg p-3 mb-5 bg-body rounded">
+        <div class="card-body">
+            <br>
+            <h1>Enter a List of Names of Candidate Members To Be Randomized Into Groups:</h1>
+            <input id="list_nama" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" placeholder="Separate With Spaces" />
+            <br>
+            <h1>Enter The Number of Groups:</h1>
+            <input id="jumlah_kelompok" type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" placeholder="..." />
+            <br>
+            <button id="shuffle" type="submit" class="btn btn-outline-secondary-2 posisi-btn-shuffle" pys-onClick="shuffle"><span class="span-2">Shuffle</span></button>
+            <br>
+            <br>
+            <h1>Result:</h1>
+            <textarea id="result_shuffle" class="form-control input-group-lg" rows="2" aria-label="Large" aria-describedby="inputGroup-sizing-sm" placeholder="..."></textarea>
+            <br>
+            <a href="../index.html" class="back-btn">Home</a>
+            <a href="../about/abouthelp.html" class="back-btn">About</a>
+        </div>
+      </div>
+    </center>
+</body>
+</html>    
